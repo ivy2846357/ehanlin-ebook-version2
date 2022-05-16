@@ -65,14 +65,15 @@ $('.page-next').click(function () {
 });
 
 $(window).resize(function () {
-	if ($(window).width() < 1200 && $(window).width() > 500) {
-		$('#book').turn('display', 'single');
-		$('#book').turn('size', 500, 705);
-	} else if ($(window).width() < 500) {
-		$('#book').turn('size', 300, 424);
-	} else {
+	if ($(window).width() > 1200) {
 		$('#book').turn('display', 'double');
 		$('#book').turn('size', 1110, 784);
+	} else if ($(window).width() < 1200 && $(window).width() > 600) {
+		$('#book').turn('display', 'single');
+		$('#book').turn('size', 500, 705);
+	} else if ($(window).width() < 600) {
+		$('#book').turn('display', 'single');
+		$('#book').turn('size', 300, 424);
 	}
 })
 
@@ -87,7 +88,6 @@ fsEnter.addEventListener('click', function (e) {
 		fullscreen = true;
 		eBook.requestFullscreen();
 		fsEnter.innerHTML = "離開全螢幕";
-		$('#book').turn('size', 1300, 800);
 	} else {
 		fullscreen = false;
 		document.exitFullscreen();
