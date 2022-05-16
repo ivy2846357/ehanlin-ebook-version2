@@ -16,7 +16,7 @@ function addPage(page, book) {
 		book.turn('addPage', element, page);
 		// Let's assum that the data is comming from the server and the request takes 1s.
 		setTimeout(function () {
-			element.html(`<div class="data"><a href="javascript:;" class="page-link"><img class="book-page" src="./img/teams-paper-${page}.png"></a></div>`);
+			element.html(`<div class="data"><div class="page-link"><img class="book-page" src="./img/teams-paper-${page}.png"></div></div>`);
 		}, 1000);
 	}
 }
@@ -57,30 +57,40 @@ $(window).ready(function () {
 	});
 });
 
-$(window).bind('keydown', function (e) {
-
-	if (e.target && e.target.tagName.toLowerCase() != 'input')
-		if (e.keyCode == 37)
-			$('#book').turn('previous');
-		else if (e.keyCode == 39)
-		$('#book').turn('next');
-
-});
-
 $('.page-prev').click(function () {
-	if (pageNumber <= 1) {
-		console.log('stop')
-	} else {
-		pageNumber -= 2
-		$('#book').turn('page', pageNumber);
-	}
+	$('#book').turn('previous');
 });
 $('.page-next').click(function () {
-	let currentPage = Number($('#page-number').val());
-	if (currentPage > 100) {
-		console.log('stop')
+	$('#book').turn('next');
+});
+
+$(window).resize(function () {
+	if ($(window).width() < 1200 && $(window).width() > 500) {
+		$('#book').turn('display', 'single');
+		$('#book').turn('size', 500, 705);
+	} else if ($(window).width() < 500) {
+		$('#book').turn('size', 300, 424);
 	} else {
-		pageNumber += 2
-		$('#book').turn('page', pageNumber);
+		$('#book').turn('display', 'double');
+		$('#book').turn('size', 1110, 784);
+	}
+})
+
+// 全螢幕設定
+let fullscreen;
+let eBook = document.querySelector('.e-book');
+let fsEnter = document.getElementById('fullscr');
+fsEnter.addEventListener('click', function (e) {
+	e.preventDefault();
+	$('.flipbook').toggleClass('full-screen');
+	if (!fullscreen) {
+		fullscreen = true;
+		eBook.requestFullscreen();
+		fsEnter.innerHTML = "離開全螢幕";
+		$('#book').turn('size', 1300, 800);
+	} else {
+		fullscreen = false;
+		document.exitFullscreen();
+		fsEnter.innerHTML = "進入全螢幕";
 	}
 });
