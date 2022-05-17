@@ -62,51 +62,48 @@ $('.page-next').click(function () {
 	$('#book').turn('next');
 });
 
-$(window).resize(function () {
+$(window).resize(debounce(() => {
 	if ($(window).height() > 1070) {
 		// 全螢幕視窗設定
 		$('#book').turn('display', 'double');
 		$('#book').turn('size', 1400, 988);
+		$('#book').turn('resize');
 	} else if ($(window).width() > 1200 && $(window).height() < 1070) {
 		// 電腦版視窗設定
 		$('#book').turn('display', 'double');
 		$('#book').turn('size', 1110, 784);
+		$('#book').turn('resize');
 	} else if ($(window).width() < 1200 && $(window).width() > 600) {
 		// 平板視窗設定
 		$('#book').turn('display', 'single');
 		$('#book').turn('size', 500, 705);
+		$('#book').turn('resize');
 	} else if ($(window).width() < 600) {
 		// 手機版視窗設定
 		$('#book').turn('display', 'single');
 		$('#book').turn('size', 300, 424);
+		$('#book').turn('resize');
 	}
+
+	// // 監聽是否進入全螢幕
+	let isclick;
+	document.addEventListener('fullscreenchange', function () {
+		console.log('切换模式了');
+		isclick == false ? isclick = true : isclick = true;
+	});
 
 	if (!checkFull()) {
 		// isclick 為 true 表示為全螢幕狀態，false 為離開全螢幕的狀態
 		if (!isclick) {
-			// console.log('按下 esc 退出全螢幕')
-		} else {
-			// 全螢幕按下 esc 要執行的動作
 			$('.flipbook').toggleClass('full-screen');
 			$('#quit-fullscr').toggle();
 			$('#fullscr').toggle();
 			$('.e-book').css('background-image', 'none');
+		} else {
+			return
 		}
 	}
-})
-
-// 監聽是否進入全螢幕
-let isclick;
-document.addEventListener('fullscreenchange', function () {
-	// console.log('切换模式了');
-	isclick == false ? isclick = true : isclick = true;
-});
-// 監聽是否有按下 esc
-function checkFull() {
-	var isFull = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
-	if (isFull == undefined) isFull = false;
-	return isFull;
-}
+}, 100));
 
 // 全螢幕設定
 let eBook = document.querySelector('.e-book');
@@ -120,11 +117,24 @@ $('#fullscr').click(function () {
 	eBook.requestFullscreen();
 });
 
-// 點擊離開全螢幕(問題：點擊後書出不來)
+// 點擊離開全螢幕`
 $('#quit-fullscr').click(function () {
-	$('.flipbook').toggleClass('full-screen');
-	$('#quit-fullscr').toggle();
-	$('#fullscr').toggle();
-	$('.e-book').css('background-image', 'none');
 	document.exitFullscreen();
 });
+
+// 監聽是否有按下 esc
+function checkFull() {
+	let isFull = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+	if (isFull == undefined) isFull = false;
+	return isFull;
+}
+
+function debounce(fn, wait) {
+	let timer;
+	return (...args) => {
+		clearTimeout(timer);
+		timer = setTimeout(() => {
+			fn(...args);
+		}, wait);
+	};
+}
