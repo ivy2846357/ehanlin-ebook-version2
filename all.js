@@ -62,7 +62,7 @@ $('.page-next').click(function () {
 	$('#book').turn('next');
 });
 
-$(window).resize(debounce(() => {
+$(window).resize(function () {
 	if ($(window).height() > 1070) {
 		// 全螢幕視窗設定
 		$('#book').turn('display', 'double');
@@ -84,26 +84,7 @@ $(window).resize(debounce(() => {
 		$('#book').turn('size', 300, 424);
 		$('#book').turn('resize');
 	}
-
-	// // 監聽是否進入全螢幕
-	let isclick;
-	document.addEventListener('fullscreenchange', function () {
-		console.log('切换模式了');
-		isclick == false ? isclick = true : isclick = true;
-	});
-
-	if (!checkFull()) {
-		// isclick 為 true 表示為全螢幕狀態，false 為離開全螢幕的狀態
-		if (!isclick) {
-			$('.flipbook').toggleClass('full-screen');
-			$('#quit-fullscr').toggle();
-			$('#fullscr').toggle();
-			$('.e-book').css('background-image', 'none');
-		} else {
-			return
-		}
-	}
-}, 100));
+});
 
 // 全螢幕設定
 let eBook = document.querySelector('.e-book');
@@ -122,19 +103,38 @@ $('#quit-fullscr').click(function () {
 	document.exitFullscreen();
 });
 
-// 監聽是否有按下 esc
-function checkFull() {
-	let isFull = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
-	if (isFull == undefined) isFull = false;
-	return isFull;
-}
+document.addEventListener("fullscreenchange", function (event) {
 
-function debounce(fn, wait) {
-	let timer;
-	return (...args) => {
-		clearTimeout(timer);
-		timer = setTimeout(() => {
-			fn(...args);
-		}, wait);
-	};
-}
+	// 監聽是否有按下 esc
+	function checkFull() {
+		let isFull = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+		if (isFull == undefined) isFull = false;
+		return isFull;
+	}
+
+	if (document.fullscreenElement !== null) {
+		// console.log('進入全螢幕');
+	} else {
+		// console.log('離開全螢幕');
+
+		// 監聽是否進入全螢幕
+		let isclick;
+		document.addEventListener('fullscreenchange', function () {
+			console.log('切换模式了');
+			isclick == false ? isclick = true : isclick = true;
+		});
+
+		if (!checkFull()) {
+			// isclick 為 true 表示為全螢幕狀態，false 為離開全螢幕的狀態
+			if (!isclick) {
+				$('.flipbook').toggleClass('full-screen');
+				$('#quit-fullscr').toggle();
+				$('#fullscr').toggle();
+				$('.e-book').css('background-image', 'none');
+			} else {
+				return
+			}
+		}
+	}
+
+});
