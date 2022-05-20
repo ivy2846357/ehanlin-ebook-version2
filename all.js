@@ -46,6 +46,28 @@ $(window).ready(function () {
 		}
 	});
 
+	if ($(window).height() > 1070 && $(window).width() > 1200) {
+		// 全螢幕視窗設定
+		$('#book').turn('display', 'double');
+		$('#book').turn('size', 1400, 988);
+		$('#book').turn('resize');
+	} else if ($(window).width() > 1200 && $(window).height() < 1070) {
+		// 電腦版視窗設定
+		$('#book').turn('display', 'double');
+		$('#book').turn('size', 1110, 784);
+		$('#book').turn('resize');
+	} else if ($(window).width() < 1200 && $(window).width() > 600) {
+		// 平板視窗設定
+		$('#book').turn('display', 'single');
+		$('#book').turn('size', 500, 705);
+		$('#book').turn('resize');
+	} else if ($(window).width() < 600) {
+		// 手機版視窗設定
+		$('#book').turn('display', 'single');
+		$('#book').turn('size', 300, 424);
+		$('#book').turn('resize');
+	}
+
 	// 預設取消前一頁按鈕的透明度
 	$('.page-prev').css('opacity', '.3').removeClass('peag-btn-hover');
 	$('.peag-btn.page-prev').css('cursor', 'auto');
@@ -85,7 +107,7 @@ $('.page-next').click(function () {
 
 // 書本大小
 $(window).resize(function () {
-	if ($(window).height() > 1070) {
+	if ($(window).height() > 1070 && $(window).width() > 1200) {
 		// 全螢幕視窗設定
 		$('#book').turn('display', 'double');
 		$('#book').turn('size', 1400, 988);
@@ -114,6 +136,7 @@ let eBook = document.querySelector('.e-book');
 // 點擊進入全螢幕
 $('#fullscr').click(function () {
 	// 書本狀態
+	$('#book').addClass('book-fullscr');
 	$('.flipbook').toggleClass('full-screen');
 	$('#quit-fullscr').toggle();
 	$('#fullscr').toggle();
@@ -156,6 +179,7 @@ document.addEventListener("fullscreenchange", function (event) {
 			// isclick 為 true 表示為全螢幕狀態，false 為離開全螢幕的狀態
 			if (!isclick) {
 				// 書本狀態
+				$('#book').removeClass('book-fullscr');
 				$('.flipbook').toggleClass('full-screen');
 				$('#quit-fullscr').toggle();
 				$('#fullscr').toggle();
