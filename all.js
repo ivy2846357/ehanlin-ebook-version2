@@ -46,22 +46,41 @@ $(window).ready(function () {
 		}
 	});
 
-	$('#page-number').keydown(function (e) {
-
-		if (e.keyCode == 13)
-			// $('#book').turn('page', $('#page-number').val());
-			$('#book').turn('page', pageNumber);
-
-	});
+	// 預設取消前一頁按鈕的透明度
+	$('.page-prev').css('opacity', '.3').removeClass('peag-btn-hover');
+	$('.peag-btn.page-prev').css('cursor', 'auto');
 });
 
+// 點擊回到上一頁
 $('.page-prev').click(function () {
 	$('#book').turn('previous');
-});
-$('.page-next').click(function () {
-	$('#book').turn('next');
+	// 設定按鈕透明度
+	if ($('#book').turn('page') == 1) {
+		$('.page-prev').css('opacity', '.3').removeClass('peag-btn-hover');
+		$('.peag-btn.page-prev').css('cursor', 'auto');
+	} else {
+		$('.page-prev').css('opacity', '1').addClass('peag-btn-hover');
+		$('.peag-btn.page-prev').css('cursor', 'pointer');
+	}
 });
 
+// 點擊進入下一頁
+$('.page-next').click(function () {
+	$('#book').turn('next');
+	// 設定按鈕透明度
+	if ($('#book').turn('page') == 28) {
+		$('.page-next').css('opacity', '.3').removeClass('peag-btn-hover');
+		$('.peag-btn.page-next').css('cursor', 'auto');
+	} else if ($('#book').turn('page') > 1) {
+		$('.page-prev').css('opacity', '1').addClass('peag-btn-hover');
+		$('.peag-btn.page-prev').css('cursor', 'pointer');
+	} else {
+		$('.page-next').css('opacity', '1').addClass('peag-btn-hover');
+		$('.peag-btn.page-next').css('cursor', 'pointer');
+	}
+});
+
+// 書本大小
 $(window).resize(function () {
 	if ($(window).height() > 1070) {
 		// 全螢幕視窗設定

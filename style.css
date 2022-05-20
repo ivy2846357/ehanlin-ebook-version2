@@ -9,7 +9,7 @@ body{
 	margin-bottom: 1rem;
 	/* background-image: radial-gradient(#537895 0%, #09203f 100%); */
 	background-image: none;
-	/* overflow: hidden; */
+	overflow: hidden;
 }
 
 #book{
@@ -167,6 +167,7 @@ body{
 }
 
 .peag-btn{
+	opacity: 1;
 	background-color: transparent;
 	background-position: center;
   	background-repeat: no-repeat;
@@ -177,6 +178,11 @@ body{
 	position: absolute;
 	cursor: pointer;
 	transform: scale(1);
+	transition: all .3s;
+}
+
+.peag-btn-hover:hover{
+	filter: brightness(150%);
 }
 
 .peag-btn-fullscr{
@@ -190,15 +196,5 @@ body{
 
 .page-next{
 	background-image: url('./img/arrow-right.svg');
-	right: 5%;
-}
-
-.page-prev-fullscr{
-	background-image: url('./img/arrow-white-left.svg');
-	left: 5%;
-}
-
-.page-next-fullscr{
-	background-image: url('./img/arrow-white-right.svg');
 	right: 5%;
 }
