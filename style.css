@@ -9,7 +9,7 @@ body{
 	margin-bottom: 1rem;
 	/* background-image: radial-gradient(#537895 0%, #09203f 100%); */
 	background-image: none;
-	overflow: hidden;
+	/* overflow: hidden; */
 }
 
 #book{
@@ -94,7 +94,7 @@ body{
 	font-size: 1.2rem;
 	border-radius: 50%;
 	color: #fff;
-	background-color: #537895;
+	background-color: #0e49b5;
 	opacity: .3;
 	cursor: pointer;
 	transition: all .3s;
@@ -104,6 +104,10 @@ body{
 
   #fullscr:hover {
 	opacity: .8;
+  }
+
+  .flipbook{
+	  position: relative;
   }
   
 .flipbook.full-screen{
@@ -151,4 +155,50 @@ body{
 #quit-fullscr:hover::after,
 #quit-fullscr:hover::before{
 	background-color: #fff;
+}
+
+.btn-item{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 0;
+	height: 100%;
+    width: 100%;
+}
+
+.peag-btn{
+	background-color: transparent;
+	background-position: center;
+  	background-repeat: no-repeat;
+	border: none;
+	outline: none;
+	width: 19px;
+	height: 100%;
+	position: absolute;
+	cursor: pointer;
+	transform: scale(1);
+}
+
+.peag-btn-fullscr{
+	transform: scale(1.5);
+}
+
+.page-prev{
+	background-image: url('./img/arrow-left.svg');
+	left: 5%;
+}
+
+.page-next{
+	background-image: url('./img/arrow-right.svg');
+	right: 5%;
+}
+
+.page-prev-fullscr{
+	background-image: url('./img/arrow-white-left.svg');
+	left: 5%;
+}
+
+.page-next-fullscr{
+	background-image: url('./img/arrow-white-right.svg');
+	right: 5%;
 }

@@ -91,18 +91,24 @@ let eBook = document.querySelector('.e-book');
 
 // 點擊進入全螢幕
 $('#fullscr').click(function () {
+	// 書本狀態
 	$('.flipbook').toggleClass('full-screen');
 	$('#quit-fullscr').toggle();
 	$('#fullscr').toggle();
 	$('.e-book').css('background-image', 'radial-gradient(#537895 0%, #09203f 100%)');
+	// 按鈕狀態
+	$('.peag-btn').addClass('peag-btn-fullscr');
+	$('.page-prev').css('background-image', 'url("./img/arrow-white-left.svg")');
+	$('.page-next').css('background-image', 'url("./img/arrow-white-right.svg")');
 	eBook.requestFullscreen();
 });
 
-// 點擊離開全螢幕`
+// 點擊離開全螢幕
 $('#quit-fullscr').click(function () {
 	document.exitFullscreen();
 });
 
+// 監聽是否為全螢幕
 document.addEventListener("fullscreenchange", function (event) {
 
 	// 監聽是否有按下 esc
@@ -127,10 +133,15 @@ document.addEventListener("fullscreenchange", function (event) {
 		if (!checkFull()) {
 			// isclick 為 true 表示為全螢幕狀態，false 為離開全螢幕的狀態
 			if (!isclick) {
+				// 書本狀態
 				$('.flipbook').toggleClass('full-screen');
 				$('#quit-fullscr').toggle();
 				$('#fullscr').toggle();
 				$('.e-book').css('background-image', 'none');
+				// 按鈕狀態
+				$('.peag-btn').removeClass('peag-btn-fullscr');
+				$('.page-prev').css('background-image', 'url("./img/arrow-left.svg")');
+				$('.page-next').css('background-image', 'url("./img/arrow-right.svg")');
 			} else {
 				return
 			}
