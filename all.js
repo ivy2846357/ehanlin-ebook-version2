@@ -58,6 +58,9 @@ $('.page-prev').click(function () {
 	if ($('#book').turn('page') == 1) {
 		$('.page-prev').css('opacity', '.3').removeClass('peag-btn-hover');
 		$('.peag-btn.page-prev').css('cursor', 'auto');
+	} else if ($('#book').turn('page') < 28) {
+		$('.page-next').css('opacity', '1').addClass('peag-btn-hover');
+		$('.peag-btn.page-next').css('cursor', 'pointer');
 	} else {
 		$('.page-prev').css('opacity', '1').addClass('peag-btn-hover');
 		$('.peag-btn.page-prev').css('cursor', 'pointer');
