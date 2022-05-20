@@ -20,11 +20,6 @@ body{
 	transition: all .3s;
 }
 
-#book .turn-page-wrapper,
-#book .turn-page-wrapper .page{
-	height: 784px;
-}
-
 #book .cover{
 	background:#333;
 }
