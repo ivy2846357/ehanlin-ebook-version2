@@ -59,12 +59,12 @@ $(window).ready(function () {
 	} else if ($(window).width() < 1200 && $(window).width() > 600) {
 		// 平板視窗設定
 		$('#book').turn('display', 'single');
-		$('#book').turn('size', 500, 705);
+		$('#book').turn('size', 900, 1300);
 		$('#book').turn('resize');
 	} else if ($(window).width() < 600) {
 		// 手機版視窗設定
 		$('#book').turn('display', 'single');
-		$('#book').turn('size', 300, 424);
+		$('#book').turn('size', 900, 1300);
 		$('#book').turn('resize');
 	}
 
@@ -120,12 +120,12 @@ $(window).resize(function () {
 	} else if ($(window).width() < 1200 && $(window).width() > 600) {
 		// 平板視窗設定
 		$('#book').turn('display', 'single');
-		$('#book').turn('size', 500, 705);
+		$('#book').turn('size', 900, 1300);
 		$('#book').turn('resize');
 	} else if ($(window).width() < 600) {
 		// 手機版視窗設定
 		$('#book').turn('display', 'single');
-		$('#book').turn('size', 300, 424);
+		$('#book').turn('size', 900, 1300);
 		$('#book').turn('resize');
 	}
 });
