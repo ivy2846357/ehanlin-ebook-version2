@@ -134,7 +134,7 @@ $('#fullscr-btn').click(function () {
 // 點擊移除滿版樣式
 $('#quit-fullscr').click(function () {
 	if($('body').hasClass('book-full-active')){
-		alert('quit fullpage')
+		// alert('quit fullpage')
 		// 移除滿版樣式
 		removeFullCSS();
 	}
@@ -165,7 +165,7 @@ document.addEventListener("fullscreenchange", function (event) {
 		if (!checkFull()) {
 			if (!isclick) {
 				// 離開全螢幕
-				alert('quit fullpage2')
+				// alert('quit fullscr')
 				removeFullCSS();
 			} else {
 				return
