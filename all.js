@@ -133,11 +133,14 @@ $('#fullscr-btn').click(function () {
 
 // 點擊移除滿版樣式
 $('#quit-fullscr').click(function () {
-	if($('body').hasClass('book-full-active')){
-		// alert('quit fullpage')
-		// 移除滿版樣式
+	if($('body').is('.book-fullsrc-active')){
+		// alert('quit fullsrc with button')
+		document.exitFullscreen();
+	}else{
+		// alert('quit fullpage with button')
 		removeFullCSS();
 	}
+	
 });
 
 // 監聽是否為全螢幕
@@ -158,14 +161,14 @@ document.addEventListener("fullscreenchange", function (event) {
 		// 監聽是否進入全螢幕
 		let isclick;
 		document.addEventListener('fullscreenchange', function () {
-			console.log('切换模式了');
+			// console.log('切换模式了');
 			isclick == false ? isclick = true : isclick = true;
 		});
 
 		if (!checkFull()) {
 			if (!isclick) {
 				// 離開全螢幕
-				// alert('quit fullscr')
+				// alert('quit fullsrc with esc')
 				removeFullCSS();
 			} else {
 				return
