@@ -109,6 +109,7 @@ $('#expand-book-btn').click(function(){
 	$('.e-book').css('background-image', 'radial-gradient(#537895 0%, #09203f 100%)').addClass('e-book-fullpage');
 	// 按鈕顯示、隱藏
 	$('#quit-fullscr').show();
+	$('#book').addClass('book-zoom');
 	// 偵測觸控裝置
 	function mobile(){
 		try{
@@ -210,6 +211,13 @@ document.addEventListener("fullscreenchange", function (event) {
 	}
 
 });
+
+$('.e-book-fullpage').click(function(){
+	zoom.to({
+		element: document.querySelector('#book'),
+		scale: 2
+	});
+})
 
 /* ------------------- 共用函式整理 ------------------- */
 
