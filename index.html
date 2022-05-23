@@ -10,14 +10,21 @@
 <body>
 
 	<div class="e-book">
-		<button type="button" id="quit-fullscr"></button>
+		<div class="fullpage-tool">
+			<button type="button" id="fullscr-btn">
+				<img class="icon-img" src="./img/fullscreen.svg" alt="fullscr-btn">
+			</button>
+			<button type="button" id="quit-fullscr">
+				<img class="icon-img" src="./img/close.svg" alt="close-full">
+			</button>
+		</div>
 		<div class="flipbook">
 			<div id="book"></div>
 			<div class="btn-item">
 				<button class="peag-btn page-prev peag-btn-hover" type="button"></button>
 				<button class="peag-btn page-next peag-btn-hover" type="button"></button>
 			</div>
-			<button type="button" id="fullscr">進入全螢幕</button>
+			<button type="button" id="expand-book-btn">展開書本</button>
 		</div>
 	</div>
 

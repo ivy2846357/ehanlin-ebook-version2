@@ -46,27 +46,7 @@ $(window).ready(function () {
 		}
 	});
 
-	if ($(window).height() > 1070 && $(window).width() > 1200) {
-		// 全螢幕視窗設定
-		$('#book').turn('display', 'double');
-		$('#book').turn('size', 1400, 988);
-		$('#book').turn('resize');
-	} else if ($(window).width() > 1200 && $(window).height() < 1070) {
-		// 電腦版視窗設定
-		$('#book').turn('display', 'double');
-		$('#book').turn('size', 1110, 784);
-		$('#book').turn('resize');
-	} else if ($(window).width() < 1200 && $(window).width() > 600) {
-		// 平板視窗設定
-		$('#book').turn('display', 'single');
-		$('#book').turn('size', 900, 1300);
-		$('#book').turn('resize');
-	} else if ($(window).width() < 600) {
-		// 手機版視窗設定
-		$('#book').turn('display', 'single');
-		$('#book').turn('size', 900, 1300);
-		$('#book').turn('resize');
-	}
+	changeWebsiteBook();
 
 	// 預設取消前一頁按鈕的透明度
 	$('.page-prev').css('opacity', '.3').removeClass('peag-btn-hover');
@@ -105,52 +85,64 @@ $('.page-next').click(function () {
 	}
 });
 
-// 書本大小
+let ebookWidth = $(window).width();
+let ebookHeight = $(window).height();
+
 $(window).resize(function () {
-	if ($(window).height() > 1070 && $(window).width() > 1200) {
-		// 全螢幕視窗設定
-		$('#book').turn('display', 'double');
-		$('#book').turn('size', 1400, 988);
-		$('#book').turn('resize');
-	} else if ($(window).width() > 1200 && $(window).height() < 1070) {
-		// 電腦版視窗設定
-		$('#book').turn('display', 'double');
-		$('#book').turn('size', 1110, 784);
-		$('#book').turn('resize');
-	} else if ($(window).width() < 1200 && $(window).width() > 600) {
-		// 平板視窗設定
-		$('#book').turn('display', 'single');
-		$('#book').turn('size', 900, 1300);
-		$('#book').turn('resize');
-	} else if ($(window).width() < 600) {
-		// 手機版視窗設定
-		$('#book').turn('display', 'single');
-		$('#book').turn('size', 900, 1300);
-		$('#book').turn('resize');
+
+	if($('body').hasClass('book-full-active')){
+		changeBookSize();
+	}else{
+		changeWebsiteBook();
 	}
 });
+
+// 調整書本至滿版
+$('#expand-book-btn').click(function(){
+	// 書本狀態
+	$('body').addClass('book-full-active');
+	$('.flipbook').addClass('full-screen', 'flipbook-fullpage');
+	$('#quit-fullscr').show();
+	$('#fullscr-btn').show();
+	$('#expand-book-btn').hide();
+	$('.e-book').css('background-image', 'radial-gradient(#537895 0%, #09203f 100%)').addClass('e-book-fullpage');
+	// 按鈕狀態
+	$('.peag-btn').addClass('peag-btn-fullscr');
+	$('.page-prev').css('background-image', 'url("./img/arrow-white-left.svg")');
+	$('.page-next').css('background-image', 'url("./img/arrow-white-right.svg")');
+
+	changeBookSize();
+})
 
 // 全螢幕設定
 let eBook = document.querySelector('.e-book');
 
 // 點擊進入全螢幕
-$('#fullscr').click(function () {
-	// 書本狀態
-	$('#book').addClass('book-fullscr');
-	$('.flipbook').toggleClass('full-screen');
-	$('#quit-fullscr').toggle();
-	$('#fullscr').toggle();
-	$('.e-book').css('background-image', 'radial-gradient(#537895 0%, #09203f 100%)');
-	// 按鈕狀態
-	$('.peag-btn').addClass('peag-btn-fullscr');
-	$('.page-prev').css('background-image', 'url("./img/arrow-white-left.svg")');
-	$('.page-next').css('background-image', 'url("./img/arrow-white-right.svg")');
+$('#fullscr-btn').click(function () {
+	$('#fullscr-btn').hide();
 	eBook.requestFullscreen();
+	changeWebsiteBook();
 });
 
 // 點擊離開全螢幕
 $('#quit-fullscr').click(function () {
+	$('body').removeClass('book-full-active');
+	$('#book').removeClass('book-fullscr');
+	$('.flipbook').removeClass('full-screen');
+	$('#quit-fullscr').hide();
+	$('#fullscr-btn').hide();
+	if($(window).width() < 768){
+		$('#expand-book-btn').hide();
+	}else{
+		$('#expand-book-btn').show();
+	}
+	$('.e-book').css('background-image', 'none').removeClass('e-book-fullpage');
+	// 按鈕狀態
+	$('.peag-btn').removeClass('peag-btn-fullscr');
+	$('.page-prev').css('background-image', 'url("./img/arrow-left.svg")');
+	$('.page-next').css('background-image', 'url("./img/arrow-right.svg")');
 	document.exitFullscreen();
+	changeWebsiteBook();
 });
 
 // 監聽是否為全螢幕
@@ -178,16 +170,9 @@ document.addEventListener("fullscreenchange", function (event) {
 		if (!checkFull()) {
 			// isclick 為 true 表示為全螢幕狀態，false 為離開全螢幕的狀態
 			if (!isclick) {
-				// 書本狀態
-				$('#book').removeClass('book-fullscr');
-				$('.flipbook').toggleClass('full-screen');
-				$('#quit-fullscr').toggle();
-				$('#fullscr').toggle();
-				$('.e-book').css('background-image', 'none');
-				// 按鈕狀態
-				$('.peag-btn').removeClass('peag-btn-fullscr');
-				$('.page-prev').css('background-image', 'url("./img/arrow-left.svg")');
-				$('.page-next').css('background-image', 'url("./img/arrow-right.svg")');
+				$('#book').turn('display', 'double');
+				$('#book').turn('size', 1400, 988);
+				$('#book').turn('resize');
 			} else {
 				return
 			}
@@ -195,3 +180,43 @@ document.addEventListener("fullscreenchange", function (event) {
 	}
 
 });
+
+// 書本大小設定
+// 滿版書本大小設置
+function changeBookSize(){
+	if ($(window).width() > 1500 && $(window).height() > 1070) {
+		// 全螢幕視窗設定
+		$('#book').turn('display', 'double');
+		$('#book').turn('size', 1400, 988);
+		$('#book').turn('resize');
+	} else if ($(window).width() < 1500 && $(window).width() > 1300) {
+		// 電腦版視窗設定
+		$('#book').turn('display', 'double');
+		$('#book').turn('size', 1100, 784);
+		// $('#book').turn('size', 1110, 784);
+		$('#book').turn('resize');
+	} else if ($(window).width() < 1300 && $(window).width() > 768) {
+		// 平板視窗設定
+		$('#book').turn('display', 'single');
+		$('#book').turn('size', 750, 1070);
+		$('#book').turn('resize');
+	} else if ($(window).width() < 768) {
+		// 手機版視窗設定
+		$('#book').turn('display', 'single');
+		$('#book').turn('size',$(window).width() , $(window).height());
+		$('#book').turn('resize');
+	}
+}
+
+// 網頁書本大小設置
+function changeWebsiteBook(){
+	if ($(window).width() > 992) {
+		$('#book').turn('display', 'double');
+		$('#book').turn('size', 700, 500);
+		$('#book').turn('resize');
+	} else {
+		$('#book').turn('display', 'single');
+		$('#book').turn('size', 400 , 600);
+		$('#book').turn('resize');
+	}
+}

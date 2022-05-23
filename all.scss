@@ -1,22 +1,31 @@
 body {
 	/* background:#ccc; */
 	transition: all .3s;
+	margin: 0;
 }
 
 .e-book {
 	position: relative;
 	width: 100%;
-	margin-bottom: 1rem;
+	margin: 1rem auto;
 	/* background-image: radial-gradient(#537895 0%, #09203f 100%); */
 	background-image: none;
 	overflow: hidden;
 }
 
+.e-book-fullpage{
+	width: 100%;
+	height: 100vh;
+	margin: 0;
+}
+
 #book {
 	position: absolute;
+	top: 50%;
+    // transform: translateY(-50%);
 	width: 1110px;
 	height: 784px;
-	margin: 1rem auto;
+	margin: auto;
 	transition: all .3s;
 }
 
@@ -74,7 +83,7 @@ body {
 	justify-content: center;
 }
 
-#fullscr {
+#expand-book-btn {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -97,7 +106,7 @@ body {
 	outline: none;
 }
 
-#fullscr:hover {
+#expand-book-btn:hover {
 	opacity: .8;
 }
 
@@ -105,51 +114,59 @@ body {
 	position: relative;
 }
 
+.flipbook-fullpage{
+	width: 100%;
+	height: 100vh;
+}
+
 .flipbook.full-screen {
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	transform: translateY(-50%);
 	width: 100%;
+	height: 100vh;
+}
+
+.full-screen #book{
+	transform: translateY(-50%);
+}
+
+#fullscr-btn{
+	display: none;
+	position: absolute;
+	width: 32px;
+	top: 1rem;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 100;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	transition: all .3s;
+}
+
+@media screen and (max-width: 768px) {
+	#fullscr-btn{
+		display: none;
+	}
 }
 
 #quit-fullscr {
 	z-index: 500;
 	position: absolute;
-	top: 1.5rem;
-	right: 1.5rem;
-	width: 3rem;
-	height: 3rem;
+	top: 1rem;
+	right: 2rem;
 	background-color: transparent;
 	border: none;
 	outline: none;
 	cursor: pointer;
 	display: none;
-}
-
-#quit-fullscr::after,
-#quit-fullscr::before {
-	content: '';
-	position: absolute;
-	top: 1rem;
-	right: 0;
-	width: 100%;
-	height: .3rem;
-	background-color: #ccc;
-	/* box-shadow: 0 0 1rem black; */
 	transition: all .3s;
 }
 
-#quit-fullscr::after {
-	transform: rotate(45deg);
-}
-
-#quit-fullscr::before {
-	transform: rotate(-45deg);
-}
-
-#quit-fullscr:hover::after,
-#quit-fullscr:hover::before {
-	background-color: #fff;
+.icon-img{
+	width: 2.5rem;
 }
 
 .btn-item {
@@ -176,7 +193,9 @@ body {
 	transition: all .3s;
 }
 
-.peag-btn-hover:hover {
+.peag-btn-hover:hover,
+#quit-fullscr:hover,
+#fullscr-btn:hover {
 	filter: brightness(150%);
 }
 
@@ -192,4 +211,9 @@ body {
 .page-next {
 	background-image: url('./img/arrow-right.svg');
 	right: 5%;
+}
+
+.fullpage-tool{
+	display: flex;
+	align-items: center;
 }
