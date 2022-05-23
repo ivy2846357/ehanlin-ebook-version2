@@ -109,7 +109,23 @@ $('#expand-book-btn').click(function(){
 	$('.e-book').css('background-image', 'radial-gradient(#537895 0%, #09203f 100%)').addClass('e-book-fullpage');
 	// 按鈕顯示、隱藏
 	$('#quit-fullscr').show();
-	$('#fullscr-btn').show();
+	// 偵測觸控裝置
+	function mobile(){
+		try{
+			document.createEvent("TouchEvent");
+			return true;
+		} catch(e) {
+			return false;
+		}
+		}
+		if(mobile()){
+			// console.log('是手機');
+			$('#fullscr-btn').hide();
+		}
+		else{
+			// console.log('是電腦');
+			$('#fullscr-btn').show();
+	}
 	$('#expand-book-btn').hide();
 	// 翻頁按鈕樣式更換
 	$('.peag-btn').addClass('peag-btn-fullscr');
@@ -144,7 +160,15 @@ $('#fullscr-btn').click(function () {
 $('#quit-fullscr').click(function () {
 	if($('body').is('.book-fullsrc-active')){
 		// alert('quit fullsrc with button')
-		document.exitFullscreen();
+		if (document.exitFullscreen) {
+			document.exitFullscreen();
+		} else if (document.msExitFullscreen) {
+			document.msExitFullscreen();
+		} else if (document.mozCancelFullScreen) {
+			document.mozCancelFullScreen();
+		} else if (document.webkitExitFullscreen) {
+			document.webkitExitFullscreen();
+		}
 	}else{
 		// alert('quit fullpage with button')
 		removeFullCSS();

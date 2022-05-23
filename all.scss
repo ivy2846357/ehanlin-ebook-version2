@@ -137,6 +137,19 @@ body {
 	width: 2.5rem;
 }
 
+@media screen and (max-width: 992px) {
+	.icon-img{
+		width: 3rem;
+	}
+}
+
+@media screen and (max-width: 756px) {
+	.icon-img{
+		width: 3.5rem;
+	}
+}
+
+ //- 功能列設定
 .fullpage-tool{
 	width: 100%;
 	position: absolute;
@@ -155,13 +168,6 @@ body {
 	outline: none;
 	cursor: pointer;
 	transition: all .3s;
-}
-
-//- 手機版全螢幕按鈕不顯示
-@media screen and (max-width: 768px) {
-	#fullscr-btn{
-		display: none;
-	}
 }
 
 //- 關閉按鈕
@@ -225,7 +231,3 @@ body {
 #fullscr-btn:hover {
 	filter: brightness(150%);
 }
-
-// .peag-btn-fullscr {
-// 	transform: scale(1.5);
-// }
