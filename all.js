@@ -119,6 +119,7 @@ let eBook = document.querySelector('.e-book');
 
 // 點擊進入全螢幕
 $('#fullscr-btn').click(function () {
+	$('body').addClass('book-fullsrc-active')
 	$('#fullscr-btn').hide();
 	eBook.requestFullscreen();
 	changeWebsiteBook();
@@ -126,23 +127,26 @@ $('#fullscr-btn').click(function () {
 
 // 點擊離開全螢幕
 $('#quit-fullscr').click(function () {
-	$('body').removeClass('book-full-active');
-	$('#book').removeClass('book-fullscr');
-	$('.flipbook').removeClass('full-screen');
-	$('#quit-fullscr').hide();
-	$('#fullscr-btn').hide();
-	if($(window).width() < 768){
-		$('#expand-book-btn').hide();
-	}else{
+	if($('body').hasClass('book-full-active')){
+		alert('quit fullpage')
+		$('body').removeClass('book-full-active');
+		$('#book').removeClass('book-fullscr');
+		$('.flipbook').removeClass('full-screen');
+		$('#quit-fullscr').hide();
+		$('#fullscr-btn').hide();
 		$('#expand-book-btn').show();
+		$('.e-book').css('background-image', 'none').removeClass('e-book-fullpage');
+		// 按鈕狀態
+		$('.peag-btn').removeClass('peag-btn-fullscr');
+		$('.page-prev').css('background-image', 'url("./img/arrow-left.svg")');
+		$('.page-next').css('background-image', 'url("./img/arrow-right.svg")');
+		changeWebsiteBook();
+	}else if($('body').hasClass('book-fullsrc-active') && $('body').hasClass('book-full-active')){
+		$('body').removeClass('book-full-active book-fullsrc-active');
+		alert('quit fullscr');
+		//changeWebsiteBook();
+		document.exitFullscreen();
 	}
-	$('.e-book').css('background-image', 'none').removeClass('e-book-fullpage');
-	// 按鈕狀態
-	$('.peag-btn').removeClass('peag-btn-fullscr');
-	$('.page-prev').css('background-image', 'url("./img/arrow-left.svg")');
-	$('.page-next').css('background-image', 'url("./img/arrow-right.svg")');
-	document.exitFullscreen();
-	changeWebsiteBook();
 });
 
 // 監聽是否為全螢幕
@@ -170,9 +174,7 @@ document.addEventListener("fullscreenchange", function (event) {
 		if (!checkFull()) {
 			// isclick 為 true 表示為全螢幕狀態，false 為離開全螢幕的狀態
 			if (!isclick) {
-				$('#book').turn('display', 'double');
-				$('#book').turn('size', 1400, 988);
-				$('#book').turn('resize');
+				changeWebsiteBook();
 			} else {
 				return
 			}
@@ -192,18 +194,17 @@ function changeBookSize(){
 	} else if ($(window).width() < 1500 && $(window).width() > 1300) {
 		// 電腦版視窗設定
 		$('#book').turn('display', 'double');
-		$('#book').turn('size', 1100, 784);
-		// $('#book').turn('size', 1110, 784);
+		$('#book').turn('size', 1200, 853);
 		$('#book').turn('resize');
 	} else if ($(window).width() < 1300 && $(window).width() > 768) {
 		// 平板視窗設定
 		$('#book').turn('display', 'single');
-		$('#book').turn('size', 750, 1070);
+		$('#book').turn('size', 710, 1000);
 		$('#book').turn('resize');
 	} else if ($(window).width() < 768) {
 		// 手機版視窗設定
 		$('#book').turn('display', 'single');
-		$('#book').turn('size',$(window).width() , $(window).height());
+		$('#book').turn('size',$(window).width(), $(window).height());
 		$('#book').turn('resize');
 	}
 }
