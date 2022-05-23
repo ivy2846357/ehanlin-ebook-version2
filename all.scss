@@ -98,7 +98,7 @@ body {
 }
 
 .full-screen #book{
-	transform: translateY(-50%);
+	transform: translateY(-50%) !important;
 }
 
 /* ------------------- 展開書本（滿版）按鈕 ------------------- */
@@ -138,18 +138,17 @@ body {
 }
 
 .fullpage-tool{
+	width: 100%;
+	position: absolute;
+	top: 1rem;
 	display: flex;
 	align-items: center;
+	justify-content: flex-end;
 }
 
 //- 全螢幕功能鈕
 #fullscr-btn{
 	display: none;
-	position: absolute;
-	width: 32px;
-	top: 1rem;
-	left: 50%;
-	transform: translateX(-50%);
 	z-index: 100;
 	background-color: transparent;
 	border: none;
@@ -168,9 +167,6 @@ body {
 //- 關閉按鈕
 #quit-fullscr {
 	z-index: 500;
-	position: absolute;
-	top: 1rem;
-	right: 2rem;
 	background-color: transparent;
 	border: none;
 	outline: none;

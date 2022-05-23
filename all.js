@@ -127,7 +127,16 @@ let eBook = document.querySelector('.e-book');
 $('#fullscr-btn').click(function () {
 	$('body').addClass('book-fullsrc-active')
 	$('#fullscr-btn').hide();
-	eBook.requestFullscreen();
+	// eBook.requestFullscreen();
+	if (eBook.requestFullscreen) {
+		eBook.requestFullscreen();
+	  } else if (eBook.msRequestFullscreen) {
+		eBook.msRequestFullscreen();
+	  } else if (eBook.mozRequestFullScreen) {
+		eBook.mozRequestFullScreen();
+	  } else if (eBook.webkitRequestFullscreen) {
+		eBook.webkitRequestFullscreen();
+	  }
 	changeWebsiteBook();
 });
 
