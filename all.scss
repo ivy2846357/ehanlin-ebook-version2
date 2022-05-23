@@ -1,7 +1,13 @@
+/* ------------------- turn.js 基本樣式 ------------------- */
+
 body {
 	/* background:#ccc; */
 	transition: all .3s;
 	margin: 0;
+}
+
+.flipbook {
+	position: relative;
 }
 
 .e-book {
@@ -11,12 +17,6 @@ body {
 	/* background-image: radial-gradient(#537895 0%, #09203f 100%); */
 	background-image: none;
 	overflow: hidden;
-}
-
-.e-book-fullpage{
-	width: 100%;
-	height: 100vh;
-	margin: 0;
 }
 
 #book {
@@ -76,12 +76,32 @@ body {
 	width: 100%;
 }
 
-.btn-item {
-	position: relative;
-	z-index: 100;
-	display: flex;
-	justify-content: center;
+/* ------------------- 滿版樣式設定 ------------------- */
+
+.e-book-fullpage{
+	width: 100%;
+	height: 100vh;
+	margin: 0;
 }
+
+.flipbook-fullpage{
+	width: 100%;
+	height: 100vh;
+}
+
+.flipbook.full-screen {
+	position: fixed;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 100%;
+	height: 100vh;
+}
+
+.full-screen #book{
+	transform: translateY(-50%);
+}
+
+/* ------------------- 展開書本（滿版）按鈕 ------------------- */
 
 #expand-book-btn {
 	display: flex;
@@ -110,27 +130,19 @@ body {
 	opacity: .8;
 }
 
-.flipbook {
-	position: relative;
+/* ------------------- 滿版功能列按鈕（關閉、全螢幕） ------------------- */
+
+ //- 按鈕大小
+.icon-img{
+	width: 2.5rem;
 }
 
-.flipbook-fullpage{
-	width: 100%;
-	height: 100vh;
+.fullpage-tool{
+	display: flex;
+	align-items: center;
 }
 
-.flipbook.full-screen {
-	position: fixed;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 100%;
-	height: 100vh;
-}
-
-.full-screen #book{
-	transform: translateY(-50%);
-}
-
+//- 全螢幕功能鈕
 #fullscr-btn{
 	display: none;
 	position: absolute;
@@ -146,12 +158,14 @@ body {
 	transition: all .3s;
 }
 
+//- 手機版全螢幕按鈕不顯示
 @media screen and (max-width: 768px) {
 	#fullscr-btn{
 		display: none;
 	}
 }
 
+//- 關閉按鈕
 #quit-fullscr {
 	z-index: 500;
 	position: absolute;
@@ -165,10 +179,9 @@ body {
 	transition: all .3s;
 }
 
-.icon-img{
-	width: 2.5rem;
-}
+/* ------------------- 翻頁按鈕設定 ------------------- */
 
+//- 按鈕位置設定 
 .btn-item {
 	position: absolute;
 	top: 50%;
@@ -176,8 +189,12 @@ body {
 	left: 0;
 	height: 100%;
 	width: 100%;
+	z-index: 100;
+	display: flex;
+	justify-content: center;
 }
 
+//- 按鈕樣式
 .peag-btn {
 	opacity: 1;
 	background-color: transparent;
@@ -193,27 +210,26 @@ body {
 	transition: all .3s;
 }
 
+//- 上一頁按鈕
+.page-prev {
+	background-image: url('./img/arrow-left.svg');
+	left: 5%;
+}
+
+//- 下一頁按鈕
+.page-next {
+	background-image: url('./img/arrow-right.svg');
+	right: 5%;
+}
+
+/* ------------------- 按鈕 hover 效果（翻頁、關閉、全螢幕） ------------------- */
+
 .peag-btn-hover:hover,
 #quit-fullscr:hover,
 #fullscr-btn:hover {
 	filter: brightness(150%);
 }
 
-.peag-btn-fullscr {
-	transform: scale(1.5);
-}
-
-.page-prev {
-	background-image: url('./img/arrow-left.svg');
-	left: 5%;
-}
-
-.page-next {
-	background-image: url('./img/arrow-right.svg');
-	right: 5%;
-}
-
-.fullpage-tool{
-	display: flex;
-	align-items: center;
-}
+// .peag-btn-fullscr {
+// 	transform: scale(1.5);
+// }

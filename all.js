@@ -1,3 +1,5 @@
+/* ------------------- turn.js 基本樣式、初始化設定 ------------------- */
+
 // Sample using dynamic pages with turn.js
 
 var numberOfPages = 28;
@@ -46,12 +48,15 @@ $(window).ready(function () {
 		}
 	});
 
+	// 初始化檢查網站寬度
 	changeWebsiteBook();
 
 	// 預設取消前一頁按鈕的透明度
 	$('.page-prev').css('opacity', '.3').removeClass('peag-btn-hover');
 	$('.peag-btn.page-prev').css('cursor', 'auto');
 });
+
+/* ------------------- 翻頁功能 ------------------- */
 
 // 點擊回到上一頁
 $('.page-prev').click(function () {
@@ -85,8 +90,7 @@ $('.page-next').click(function () {
 	}
 });
 
-let ebookWidth = $(window).width();
-let ebookHeight = $(window).height();
+/* ------------------- 滿版 RWD 功能 ------------------- */
 
 $(window).resize(function () {
 
@@ -100,13 +104,14 @@ $(window).resize(function () {
 // 調整書本至滿版
 $('#expand-book-btn').click(function(){
 	// 書本狀態
-	$('body').addClass('book-full-active');
-	$('.flipbook').addClass('full-screen', 'flipbook-fullpage');
+	$('body').addClass('book-full-active'); // 檢查滿版狀態
+	$('.flipbook').addClass('full-screen', 'flipbook-fullpage'); // 新增滿版樣式
+	$('.e-book').css('background-image', 'radial-gradient(#537895 0%, #09203f 100%)').addClass('e-book-fullpage');
+	// 按鈕顯示、隱藏
 	$('#quit-fullscr').show();
 	$('#fullscr-btn').show();
 	$('#expand-book-btn').hide();
-	$('.e-book').css('background-image', 'radial-gradient(#537895 0%, #09203f 100%)').addClass('e-book-fullpage');
-	// 按鈕狀態
+	// 翻頁按鈕樣式更換
 	$('.peag-btn').addClass('peag-btn-fullscr');
 	$('.page-prev').css('background-image', 'url("./img/arrow-white-left.svg")');
 	$('.page-next').css('background-image', 'url("./img/arrow-white-right.svg")');
@@ -114,7 +119,8 @@ $('#expand-book-btn').click(function(){
 	changeBookSize();
 })
 
-// 全螢幕設定
+/* ------------------- 全螢幕設定 ------------------- */
+
 let eBook = document.querySelector('.e-book');
 
 // 點擊進入全螢幕
@@ -125,27 +131,12 @@ $('#fullscr-btn').click(function () {
 	changeWebsiteBook();
 });
 
-// 點擊離開全螢幕
+// 點擊移除滿版樣式
 $('#quit-fullscr').click(function () {
 	if($('body').hasClass('book-full-active')){
 		alert('quit fullpage')
-		$('body').removeClass('book-full-active');
-		$('#book').removeClass('book-fullscr');
-		$('.flipbook').removeClass('full-screen');
-		$('#quit-fullscr').hide();
-		$('#fullscr-btn').hide();
-		$('#expand-book-btn').show();
-		$('.e-book').css('background-image', 'none').removeClass('e-book-fullpage');
-		// 按鈕狀態
-		$('.peag-btn').removeClass('peag-btn-fullscr');
-		$('.page-prev').css('background-image', 'url("./img/arrow-left.svg")');
-		$('.page-next').css('background-image', 'url("./img/arrow-right.svg")');
-		changeWebsiteBook();
-	}else if($('body').hasClass('book-fullsrc-active') && $('body').hasClass('book-full-active')){
-		$('body').removeClass('book-full-active book-fullsrc-active');
-		alert('quit fullscr');
-		//changeWebsiteBook();
-		document.exitFullscreen();
+		// 移除滿版樣式
+		removeFullCSS();
 	}
 });
 
@@ -172,9 +163,10 @@ document.addEventListener("fullscreenchange", function (event) {
 		});
 
 		if (!checkFull()) {
-			// isclick 為 true 表示為全螢幕狀態，false 為離開全螢幕的狀態
 			if (!isclick) {
-				changeWebsiteBook();
+				// 離開全螢幕
+				alert('quit fullpage2')
+				removeFullCSS();
 			} else {
 				return
 			}
@@ -183,8 +175,10 @@ document.addEventListener("fullscreenchange", function (event) {
 
 });
 
+/* ------------------- 共用函式整理 ------------------- */
+
 // 書本大小設定
-// 滿版書本大小設置
+// （滿版）書本大小設置
 function changeBookSize(){
 	if ($(window).width() > 1500 && $(window).height() > 1070) {
 		// 全螢幕視窗設定
@@ -209,7 +203,7 @@ function changeBookSize(){
 	}
 }
 
-// 網頁書本大小設置
+// （網頁）書本大小設置
 function changeWebsiteBook(){
 	if ($(window).width() > 992) {
 		$('#book').turn('display', 'double');
@@ -220,4 +214,22 @@ function changeWebsiteBook(){
 		$('#book').turn('size', 400 , 600);
 		$('#book').turn('resize');
 	}
+}
+
+// 移除滿版樣式及改變書本大小
+function removeFullCSS(){
+	// 書本狀態
+	$('body').removeClass('book-full-active'); // 檢查滿版狀態
+	$('.flipbook').removeClass('full-screen'); // 移除滿版樣式
+	$('.e-book').css('background-image', 'none').removeClass('e-book-fullpage');
+	// 按鈕顯示、隱藏
+	$('#quit-fullscr').hide();
+	$('#fullscr-btn').hide();
+	$('#expand-book-btn').show();
+	// 翻頁按鈕樣式更換
+	$('.peag-btn').removeClass('peag-btn-fullscr');
+	$('.page-prev').css('background-image', 'url("./img/arrow-left.svg")');
+	$('.page-next').css('background-image', 'url("./img/arrow-right.svg")');
+	// 調整書本大小
+	changeWebsiteBook();
 }
