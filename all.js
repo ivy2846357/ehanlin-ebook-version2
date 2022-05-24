@@ -234,16 +234,27 @@ function changeBookSize(){
 		$('#book').turn('display', 'double');
 		$('#book').turn('size', 1200, 853);
 		$('#book').turn('resize');
-	} else if ($(window).width() < 1300 && $(window).width() > 768) {
+	} else if ($(window).width() < 1300 && $(window).width() > 992) {
 		// 平板視窗設定
 		$('#book').turn('display', 'single');
-		$('#book').turn('size', 710, 1000);
+		$('#book').turn('size', 820, 1162);
 		$('#book').turn('resize');
-	} else if ($(window).width() < 768) {
+	}else if ($(window).width() < 992 && $(window).width() > 700) {
+		// 平板視窗設定
+		$('#book').turn('display', 'single');
+		$('#book').turn('size', 695, 987);
+		$('#book').turn('resize');
+		$('.flipbook.full-screen').css('top', '50%');
+		$('.btn-item').css('top', '50%');
+	} else if ($(window).width() < 700) {
 		// 手機版視窗設定
 		$('#book').turn('display', 'single');
 		$('#book').turn('size',$(window).width(), $(window).height());
 		$('#book').turn('resize');
+		let bookTopNum = `${115-(Math.round(($(window).width()/$(window).height())*100))}%`
+		let pageBtnTopNum = `${-13+(Math.round(($(window).width()/$(window).height())*100))}%`
+		$('.flipbook.full-screen').css('top', bookTopNum);
+		$('.btn-item').css('top', pageBtnTopNum);
 	}
 }
 
